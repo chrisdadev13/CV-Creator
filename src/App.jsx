@@ -1,13 +1,12 @@
 import react from "react"
+import Main from './components/Main';
 
 function App() {
 
   return (
-    <div className='text-red'>
-      <h1>
-        hola mundo
-      </h1>
-    </div>
+    <>
+      <Main />
+    </>
   )
 }
 
