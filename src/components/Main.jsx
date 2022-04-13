@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Button from './utils/Button';
 import CVForm from './CVForm/CVForm';
+import CVProfessional from './CVForm/CVProfessional';
 
 const Main = () => {
   const [ cv, setCv ] = useState({});
+  const [ cvPro, setCvPro ] = useState({});
 
   const handleCvData = (e) => {
     const value = e.target.value;
@@ -13,6 +15,23 @@ const Main = () => {
       ...cv,
       [name]: value
     })
+  }
+
+  const handleCvProData = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setCvPro({
+      ...cvPro,
+      [name]: value
+    })
+  }
+
+  let [storeJobData, setJobData] = useState([]);
+
+  const addJobStore = () => {
+    setJobData(storeJobData = [...storeJobData, cvPro])
+    console.log(storeJobData);
   }
 
   const [error, setError] = useState(false);
@@ -57,7 +76,7 @@ const Main = () => {
         <CVForm cvData={cv} handleChange={handleCvData} error={error}/>
       }
       {page == 1 &&
-        <h1>Hola</h1>
+        <CVProfessional cvData={cvPro} handleChange={handleCvProData} addToJobStore={addJobStore}/>
       }
       <div className='flex items-center justify-center'>
       {page == 1 &&
@@ -65,6 +84,8 @@ const Main = () => {
       }
         <Button setAction={page == 0 ? nextPage : saveAll} action={page == 0 ? "Next Step" : "Save all"} className={"bg-blue-400 text-white p-4 rounded-md mt-12 hover:bg-blue-700 transition duration-500"}></Button>
       </div>
+      <button onClick={() => console.log(cvPro)}>test</button>
+      <button onClick={() => console.log(storeJobData)}>store test</button>
     </>
   )
 }
